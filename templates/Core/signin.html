@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Вход {% endblock %}
+
+{% block content %}
+
+
+<h1 style="text-align: center;">Вход</h1>
+
+<div style="width: 1000px; margin: 0 auto;">
+    <form method="post" style="display: flex; flex-direction: column; width: 600px; margin: 0 auto;">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Имя пользователя" required>
+        <input type="pasword" name="password" placeholder="Пароль" required>
+        
+        <button type="submit">Зарегестрироваться</button>
+    </form>
+
+    {% for message in messages %}
+    <p><strong>{{ message }}</strong></p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

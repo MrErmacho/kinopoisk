@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ genre.name }}{% endblock %}
+
+{% block content %}
+
+{% include "includes/movie_list_card.html" %}
+
+{% endblock %}

@@ -5,6 +5,7 @@ from django.db import models
 class User(AbstractUser):
     favorite_movies = models.ManyToManyField(
         'kinopoisk.Movie',
+        blank=True
     )
     avatar = models.ImageField(
         upload_to='avatars/',

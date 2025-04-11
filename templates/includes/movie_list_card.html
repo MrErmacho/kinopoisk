@@ -1,0 +1,18 @@
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 1200px; margin: auto;">
+    {% for movie in movies %}
+    <div style="width: 30%; min-width: 250px; display: flex;">
+        <div style="border: 1px solid #ddd; padding: 10px; text-align: center; flex: 1; display: flex; flex-direction: column;">
+            <img src="{{ movie.poster.url }}" style="width: 100%; height: auto;">
+            <h5>{{ movie.title }}</h5>
+            <p style="flex-grow: 1;">{{ movie.description }}</p>
+            <h5>Жанры:</h5>
+            <p>
+                {% for genre in movie.genres.all %}
+                    {{ genre.name }}
+                {% endfor %}
+            </p>
+            <a href="{% url "kinopoisk:movie_detail" movie_id=movie.id %}" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; margin-top: auto;">Подробнее</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Kinopoisk | Жанры{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Жанры</h1>
+    <div class="row justify-content-center">
+        {% for genre in genres %}
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="card text-center shadow-sm border-0 genre-card">
+                    <div class="card-body">
+                        <p class="btn btn-outline-primary w-100 genre-button">
+                            <a href="{% url 'kinopoisk:genre_detail' genre_id=genre.id %}">{{ genre.name }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .genre-card {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .genre-card:hover {
+        transform: scale(1.05);
+    }
+
+    .genre-button {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+</style>
+{% endblock %}

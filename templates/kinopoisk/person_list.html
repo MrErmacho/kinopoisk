@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ title }}</h1>
+    <div class="row justify-content-center">
+        {% for person in persons %}
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="card text-center shadow-sm border-0 genre-card">
+                    <div class="card-body">
+                        <img src="{{ person.photo.url }}" alt="">
+                        <p class="btn btn-outline-primary w-100 genre-button">
+                            <a href="{% url 'kinopoisk:person_detail' person_id=person.id %}">{{ person.name }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

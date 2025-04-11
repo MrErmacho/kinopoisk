@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+
+<h1 style="text-aling: center;"> Информация о фильме: {{ movie.title }}</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 1200px; margin: 0 auto;">
+<div style="width: 30%; min-width: 250px; display: flex;">
+    <div style="border: 1px solid #ddd; padding: 10px; text-align: center; flex: 1; display: flex; flex-direction: column;">
+        <img src="{{ movie.poster.url }}" style="width: 100%; height: auto;">
+        <h5>{{ movie.title }}</h5>
+        <p style="flex-grow: 1;">{{ movie.description }}</p>
+        <h5>Жанры:</h5>
+        <p>
+            <ul style="list-style: none;">
+                {% for genre in movie.genres.all %}
+                    <li>
+                        <a href="{% url "kinopoisk:genre_detail" genre_id=genre.id %}" >{{ genre.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </p>
+    </div>
+</div>
+</div>
+
+{% if request.user.is_authenticated %}
+    <section style="margin: 0 auto; width: 1000px;">
+        <h2>Оставить комментарий:</h2>
+        <form action="{% url 'kinopoisk:add_review' %}" method='post' style="display: flex; flex-direction: column; width: 600px; margin: 0 auto; padding: 20px; border: 5px solid green;">
+            {% csrf_token %}
+            <textarea name="review_text" id="" placeholder="Введите коментарий:"></textarea>
+            <button type="submit">Отправить отзыв</button>
+            <input type="hidden" value="{{ movie.id }}" name="movie_id">
+        </form>
+    </section>
+{% endif %}
+
+<section style="width: 1000px; margin: 0 auto; margin-top: 40 px;">
+    <h2>Комментарии:</h2>
+    {% for review in reviews %}
+    <div style="border: 10px solid red; padding: 20px; margin-bottom: 10px;">
+        <h3><strong>Автор: </strong>{{ review.author.username }}</h3>
+        <h3><strong>Комментарий: </strong>{{ review.text }}</h3>
+        <h3><strong>Лайки: </strong>{{ review.likes }}</h3>
+        <h3><strong>Дата создания: </strong>{{ review.created_at }}</h3>
+    </div>
+    {% endfor %}
+</section>
+
+{% endblock %}
